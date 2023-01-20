@@ -1,6 +1,7 @@
 package writebeplayer.writebeplayer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class WriteConfig {
+    private static final ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private static Path dataDirectory;
     private static String ConfigFile;
 
@@ -23,7 +25,6 @@ public class WriteConfig {
     }
 
     public static void  WriteObject(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         File file = new File(dataDirectory + "/" + ConfigFile);
         writeStringToFile(mapper.writeValueAsString(object), file);
     }
